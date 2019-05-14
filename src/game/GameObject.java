@@ -35,6 +35,7 @@ public class GameObject {
         // cls = BackGround.class or Player.class
         // E = Player or BackGround
 
+
         for(int i=0;i<objects.size();i++){
             GameObject object = objects.get(i);
             // object kiem tra dung cls ko ?;
@@ -46,6 +47,18 @@ public class GameObject {
         return null;
     }
 
+    public static <E extends GameObject> E findIntersects(Class cls, BoxCollider hitBox){
+        for(int i = 0; i < objects.size(); i++){
+            GameObject object = objects.get(i);
+            // 1. active
+            // 2. objects ~ cls
+            // 3. objects.hitBox != null && object.hitBox.intersects(hitBox)
+            if(object.active && cls.isAssignableFrom(object.getClass()) && object.hitBox != null && object.hitBox.intersects(hitBox)){
+                return (E) object;
+            }
+        }
+        return null;
+    }
     // Ví dụ
     /* public static void main(String[] args) {
         Player deActivatedPlayer = findInactive(Player.class);
@@ -56,12 +69,15 @@ public class GameObject {
     public BufferedImage image; // null
     public Vector2D position;
     public boolean active;
+    public Vector2D velocity;
+    public BoxCollider hitBox; // null
 
     public GameObject(){
         objects.add(this);
-        System.out.println(objects.size());
+//        System.out.println(objects.size());
         position = new Vector2D(); // default position(0,0);
         active = true;
+        velocity = new Vector2D(); // (0,0)
     }
 
     public void render(Graphics g){
@@ -71,7 +87,7 @@ public class GameObject {
     }
 
     public void run(){
-
+        position.add(velocity.x, velocity.y);
     }
 
     public void deactive(){

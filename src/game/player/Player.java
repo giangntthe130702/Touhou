@@ -40,7 +40,7 @@ public class Player extends GameObject {
 
         // ban dan
         this.fire();
-        System.out.println(GameObject.objects.size());
+//        System.out.println(GameObject.objects.size());
         // playerBullets run()
 
 
@@ -54,16 +54,19 @@ public class Player extends GameObject {
 //            PlayerBullet bullet = new PlayerBullet();
             PlayerBullet bullet = GameObject.recycles(PlayerBullet.class);
             bullet.position.set(this.position.x, this.position.y);
+            bullet.velocity.setAngle(Math.toRadians(-90));
 //            playerBullets.add(bullet);
 
 //            PlayerBullet bullet2 = new PlayerBullet();
             PlayerBullet bullet2 = GameObject.recycles(PlayerBullet.class);
             bullet2.position.set(this.position.x - 10, this.position.y);
+            bullet2.velocity.setAngle(Math.toRadians(-135));
 //            playerBullets.add(bullet2);
 
 //            PlayerBullet bullet3 = new PlayerBullet();
             PlayerBullet bullet3 = GameObject.recycles(PlayerBullet.class);
             bullet3.position.set(this.position.x + 10, this.position.y);
+            bullet3.velocity.setAngle(Math.toRadians(-45));
 //            playerBullets.add(bullet3);
 
             count = 0;
